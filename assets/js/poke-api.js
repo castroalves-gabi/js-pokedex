@@ -1,8 +1,6 @@
-document.addEventListener("DOMContentLoaded", function(e) {
+const pokeApi = {}
 
-const pokemonAPI = {}
-
-function convertPokemonApiDetailToPokemon(pokeDetail){
+function convertPokeApiDetailToPokemon(pokeDetail){
     const pokemon = new Pokemon()
     pokemon.number = pokeDetail.id
     pokemon.name = pokeDetail.name
@@ -30,21 +28,19 @@ function convertPokemonApiDetailToPokemon(pokeDetail){
     return pokemon
 }
 
-pokemonAPI.getPokemonDetail = (pokemon) => {
+pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
     .then((response) => response.json())
-    .then(convertPokemonApiDetailToPokemon)
+    .then(convertPokeApiDetailToPokemon)
 }
 
-pokemonAPI.getPokemons = (offset = 0, limit = 9) => {
+pokeApi.getPokemons = (offset = 0, limit = 9) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
     return fetch(url)
         .then((response) => response.json())
         .then((jsonBody) => jsonBody.results)
-        .then((pokemons) => pokemons.map(pokemonAPI.getPokemonDetail))
+        .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
         .catch((error) => console.error(error))
 }
-
-});

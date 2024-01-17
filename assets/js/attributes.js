@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(e) {
-
 function convertPokemonToList(pokemon) {
 	const a = document.createElement("a");
 	a.href = `#${pokemon.name}`;
@@ -142,5 +140,3 @@ function convertPokemonToAttributesModal(pokemon) {
 	mainDiv.appendChild(divAttributes);
 	modal.appendChild(mainDiv);
 }
-
-});

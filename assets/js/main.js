@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(e) {
-
 const content = document.getElementById("content");
 const pokemonList = document.getElementById("pokemonList");
 const loadMoreButton = document.getElementById("loadMoreButton");
@@ -9,13 +7,13 @@ let offset = 0;
 const limit = 10;
 
 async function loadPokemonItens(offset, limit) {
-	pokemonAPI.getPokemons(offset, limit).then((pokemons = []) => {
+	pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
         pokemons.map(convertPokemonToList);
 	}, 2000);
 }
 
 async function pokemonsAttributes() {
-	pokemonAPI.getPokemons(offset, limit).then((pokemons = []) => {
+	pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
 		modal.style.display = "block";
 
 		const pokemonFilter = pokemons.filter(function (el) {
@@ -34,6 +32,4 @@ loadPokemonItens(offset, limit);
 loadMoreButton.addEventListener("click", () => {
 	offset += limit;
 	loadPokemonItens(offset, limit);
-});
-
 });
